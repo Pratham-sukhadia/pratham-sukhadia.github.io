@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pratham Sukhadia | Creative Technologist</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #030014;
+            --card: rgba(17, 25, 40, 0.75);
+            --border: rgba(255, 255, 255, 0.125);
+            --primary: #4F46E5;
+            --accent: #A855F7;
+            --text: #ffffff;
+            --text-gray: #94a3b8;
+            --glow: 0 0 80px -20px rgba(79, 70, 229, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(79, 70, 229, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.15) 0%, transparent 40%);
+            padding-bottom: 50px;
+        }
+
+        /* --- Admin UI --- */
+        #admin-panel {
+            position: fixed; top: 0; left: 0; right: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: none; /* Hidden default */
+            justify-content: space-between;
+            align-items: center;
+            z-index: 9999;
+            border-bottom: 2px solid var(--primary);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        
+        .admin-controls { display: flex; gap: 15px; align-items: center; }
+        
+        .admin-btn {
+            border: none; padding: 10px 24px;
+            border-radius: 6px; cursor: pointer; font-weight: 600;
+            transition: 0.3s; display: flex; align-items: center; gap: 8px;
+        }
+        .btn-save { background: #10b981; color: white; }
+        .btn-save:hover { background: #059669; }
+        .btn-cancel { background: #ef4444; color: white; }
+        
+        /* Edit Mode Styles */
+        body.admin-active [contenteditable="true"] {
+            border: 1px dashed rgba(79, 70, 229, 0.5);
+            background: rgba(79, 70, 229, 0.1);
+            padding: 2px 5px; border-radius: 4px;
+            cursor: text;
+        }
+        
+        body.admin-active .delete-btn { display: flex; }
+        body.admin-active .add-section { display: flex; }
+        body.admin-active .edit-link-icon { display: inline-block; }
+
+        /* --- Navigation --- */
+        nav {
+            padding: 2rem 5%; margin-top: 60px; /* Space for admin bar */
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo {
+            font-family: 'Syncopate', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- Hero --- */
+        .hero {
+            min-height: 80vh;
+            display: flex; align-items: center; justify-content: center;
+            flex-direction: column; text-align: center;
+            padding: 0 5%;
+            position: relative;
+        }
+        .hero h1 {
+            font-size: 4.5rem; line-height: 1; margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1.25rem; color: var(--text-gray);
+            max-width: 700px; margin-bottom: 2.5rem;
+        }
+        .profile-glow {
+            width: 180px; height: 180px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            padding: 5px;
+            margin-bottom: 2rem;
+            position: relative;
+            transition: 0.3s;
+        }
+        .profile-glow:hover { border-color: var(--primary); }
+        .profile-img {
+            width: 100%; height: 100%;
+            border-radius: 50%; object-fit: cover;
+        }
+        .camera-icon {
+            position: absolute; inset: 0; background: rgba(0,0,0,0.6);
+            border-radius: 50%; display: none; align-items: center; justify-content: center;
+            font-size: 2rem; color: white; cursor: pointer;
+        }
+        body.admin-active .camera-icon { display: flex; }
+
+        /* --- Buttons --- */
+        .btn {
+            padding: 12px 30px; border-radius: 50px;
+            text-decoration: none; font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative; overflow: hidden;
+            display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn-primary {
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            color: white;
+            box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(124, 58, 237, 0.5); }
+        .btn-glass {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+        .btn-glass:hover { border-color: var(--primary); background: rgba(255,255,255,0.1); }
+
+        /* --- Sections & Cards --- */
+        section { padding: 6rem 10%; }
+        .section-title {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 2rem; margin-bottom: 3rem;
+            text-align: center; letter-spacing: 2px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: var(--glow);
+        }
+
+        .card h3 { font-size: 1.4rem; margin-bottom: 0.5rem; }
+        .card-sub { color: var(--accent); font-size: 0.9rem; margin-bottom: 1rem; font-family: monospace; }
+        .card p { color: var(--text-gray); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem; }
+
+        .delete-btn {
+            position: absolute; top: -10px; right: -10px;
+            background: #ef4444; color: white; border: none;
+            width: 30px; height: 30px; border-radius: 50%;
+            cursor: pointer; display: none; align-items: center; justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5); z-index: 10;
+        }
+        
+        .edit-link-icon {
+            display: none; color: var(--accent); margin-left: 10px; cursor: pointer;
+        }
+
+        /* --- Tech Stack --- */
+        .tech-pill {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            font-size: 0.85rem; margin: 4px;
+        }
+
+        /* --- Add Button (Admin) --- */
+        .add-section {
+            display: none; justify-content: center; margin-top: 2rem;
+        }
+        .add-btn {
+            background: transparent; border: 2px dashed var(--border);
+            color: var(--text-gray); padding: 1rem 3rem; border-radius: 12px;
+            cursor: pointer; transition: 0.3s;
+        }
+        .add-btn:hover { border-color: var(--primary); color: white; }
+
+        /* --- Contact --- */
+        .social-grid { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+        .social-item {
+            display: flex; align-items: center; gap: 10px;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            color: white; text-decoration: none;
+            transition: 0.3s;
+        }
+        .social-item:hover { background: var(--primary); border-color: var(--primary); }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.8rem; }
+            section { padding: 4rem 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="admin-panel">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="color: white; font-weight: bold; font-family: 'Syncopate';">ADMIN MODE</span>
+            <span style="color: var(--text-gray); font-size: 0.8rem;">Editing...</span>
+        </div>
+        <div class="admin-controls">
+            <button class="admin-btn btn-save" onclick="saveAndLock()">
+                <i class="fas fa-save"></i> Save & Lock
+            </button>
+        </div>
+    </div>
+
+    <nav>
+        <div class="logo">PRATHAM.</div>
+        <a href="#contact" class="btn btn-glass">Contact</a>
+    </nav>
+
+    <section class="hero">
+        <div class="profile-glow">
+            <img src="https://via.placeholder.com/200x200/111827/4F46E5?text=Img" id="profile-pic" class="profile-img">
+            <div class="camera-icon" onclick="document.getElementById('file-upload').click()">
+                <i class="fas fa-camera"></i>
+            </div>
+            <input type="file" id="file-upload" hidden accept="image/*" onchange="handleImage(event)">
+        </div>
+        
+        <h1 class="editable" id="hero-title">Pratham Sukhadia</h1>
+        <p class="editable" id="hero-bio">
+            Creative Strategist & Prompt Engineer at <strong>AcoTax</strong>.<br>
+            Bridging the gap between complex code and stunning design.
+        </p>
+
+        <div class="cta-group">
+            <a href="#projects" class="btn btn-primary">View Work</a>
+            <a href="https://wa.me/919173109155" class="btn btn-glass"><i class="fab fa-whatsapp"></i> Chat</a>
+        </div>
+
+        <div style="margin-top: 3rem;">
+            <div class="tech-pill">Python</div>
+            <div class="tech-pill">PHP</div>
+            <div class="tech-pill">C# .NET</div>
+            <div class="tech-pill">Oracle</div>
+            <div class="tech-pill">UI/UX</div>
+            <div class="tech-pill">Prompt Engineering</div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title">Selected Works</h2>
+        <div class="grid" id="project-grid">
+            <div class="card">
+                <button class="delete-btn" onclick="deleteItem(this)"><i class="fas fa-times"></i></button>
+                <h3 class="editable">Venture Tycoon</h3>
+                <div class="card-sub editable">HTML5 / JS / Physics Engine</div>
+                <p class="editable">A complex business simulation game featuring real-time resource management and sprite animation logic.</p>
+                <a href="#" class="btn btn-glass" onclick="return false;">View Project <i class="fas fa-pen edit-link-icon" onclick="editLink(this.parentElement)"></i></a>
+            </div>
+             <div class="card">
+                <button class="delete-btn" onclick="deleteItem(this)"><i class="fas fa-times"></i></button>
+                <h3 class="editable">Resource Finder</h3>
+                <div class="card-sub editable">PHP / MySQL / Secure Auth</div>
+                <p class="editable">Enterprise utility application with dashboard analytics and secure user authentication systems.</p>
+                <a href="#" class="btn btn-glass" onclick="return false;">View Project <i class="fas fa-pen edit-link-icon" onclick="editLink(this.parentElement)"></i></a>
+            </div>
+        </div>
+        
+        <div class="add-section">
+            <button class="add-btn" onclick="addItem('project')">+ Add Project</button>
+        </div>
+    </section>
+
+    <section style="background: rgba(255,255,255,0.02);">
+        <h2 class="section-title">Credentials</h2>
+        <div class="grid" id="cert-grid">
+            <div class="card">
+                <button class="delete-btn" onclick="deleteItem(this)"><i class="fas fa-times"></i></button>
+                <i class="fas fa-certificate" style="color: var(--accent); font-size: 2rem; margin-bottom: 1rem;"></i>
+                <h3 class="editable">Social Media Marketing</h3>
+                <p class="card-sub editable">Professional Certification</p>
+                <p class="editable">Advanced strategies in SMO, content distribution, and analytics.</p>
+            </div>
+        </div>
+        <div class="add-section">
+            <button class="add-btn" onclick="addItem('cert')">+ Add Certification</button>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title">Connect</h2>
+        <div class="social-grid">
+            <a href="https://wa.me/919173109155" class="social-item"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            <a href="https://www.instagram.com/pr._.sukhadia_007" class="social-item"><i class="fab fa-instagram"></i> Instagram</a>
+            <a href="https://www.linkedin.com/in/pratham-sukhadia-714095315" class="social-item"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            <a href="mailto:sukhadiapratham952@gmail.com" class="social-item"><i class="fas fa-envelope"></i> Email</a>
+        </div>
+        <p style="text-align:center; margin-top: 3rem; color: var(--text-gray); font-size: 0.9rem;">
+            &copy; 2026 Pratham Sukhadia. All Rights Reserved.
+        </p>
+        <div style="text-align: center; margin-top: 1rem; opacity: 0.3; cursor: pointer;" onclick="unlockAdmin()">
+            <i class="fas fa-lock"></i>
+        </div>
+    </section>
+
+    <script>
+        // --- 1. INITIALIZATION: LOAD DATA ---
+        window.onload = function() {
+            // Check if we have saved data. If yes, replace HTML.
+            if(localStorage.getItem('p_hero_title')) document.getElementById('hero-title').innerHTML = localStorage.getItem('p_hero_title');
+            if(localStorage.getItem('p_hero_bio')) document.getElementById('hero-bio').innerHTML = localStorage.getItem('p_hero_bio');
+            if(localStorage.getItem('p_projects')) document.getElementById('project-grid').innerHTML = localStorage.getItem('p_projects');
+            if(localStorage.getItem('p_certs')) document.getElementById('cert-grid').innerHTML = localStorage.getItem('p_certs');
+            if(localStorage.getItem('p_img')) document.getElementById('profile-pic').src = localStorage.getItem('p_img');
+        }
+
+        // --- 2. UNLOCK (LOGIN) ---
+        function unlockAdmin() {
+            const email = prompt("Enter Admin Email to Edit:");
+            if(email === "sukhadiapratham952@gmail.com") {
+                enableEditMode();
+            } else {
+                alert("Access Denied");
+            }
+        }
+
+        function enableEditMode() {
+            document.body.classList.add('admin-active');
+            document.getElementById('admin-panel').style.display = 'flex';
+            
+            // Turn ON contenteditable
+            document.querySelectorAll('.editable').forEach(el => el.setAttribute('contenteditable', 'true'));
+        }
+
+        // --- 3. SAVE AND LOCK ---
+        function saveAndLock() {
+            // 1. Turn OFF contenteditable
+            document.querySelectorAll('.editable').forEach(el => el.removeAttribute('contenteditable'));
+            
+            // 2. Save innerHTML of the sections to localStorage
+            localStorage.setItem('p_hero_title', document.getElementById('hero-title').innerHTML);
+            localStorage.setItem('p_hero_bio', document.getElementById('hero-bio').innerHTML);
+            localStorage.setItem('p_projects', document.getElementById('project-grid').innerHTML);
+            localStorage.setItem('p_certs', document.getElementById('cert-grid').innerHTML);
+            
+            // 3. Hide Admin UI
+            document.body.classList.remove('admin-active');
+            document.getElementById('admin-panel').style.display = 'none';
+
+            alert("CHANGES SAVED & LOCKED!\nWebsite updated successfully.");
+        }
+
+        // --- 4. CONTENT MANAGEMENT (ADD/DELETE) ---
+        function addItem(type) {
+            const container = type === 'project' ? document.getElementById('project-grid') : document.getElementById('cert-grid');
+            const newCard = document.createElement('div');
+            newCard.className = 'card';
+            
+            if(type === 'project') {
+                newCard.innerHTML = `
+                    <button class="delete-btn" onclick="deleteItem(this)"><i class="fas fa-times"></i></button>
+                    <h3 class="editable" contenteditable="true">New Project</h3>
+                    <div class="card-sub editable" contenteditable="true">Tech Stack</div>
+                    <p class="editable" contenteditable="true">Description...</p>
+                    <a href="#" class="btn btn-glass" onclick="return false;">View Project <i class="fas fa-pen edit-link-icon" onclick="editLink(this.parentElement)"></i></a>
+                `;
+            } else {
+                newCard.innerHTML = `
+                    <button class="delete-btn" onclick="deleteItem(this)"><i class="fas fa-times"></i></button>
+                    <i class="fas fa-certificate" style="color: var(--accent); font-size: 2rem; margin-bottom: 1rem;"></i>
+                    <h3 class="editable" contenteditable="true">New Certificate</h3>
+                    <p class="card-sub editable" contenteditable="true">Issuer</p>
+                    <p class="editable" contenteditable="true">Description...</p>
+                `;
+            }
+            container.appendChild(newCard);
+        }
+
+        function deleteItem(btn) {
+            if(confirm("Delete this item?")) btn.parentElement.remove();
+        }
+
+        function editLink(anchor) {
+            const currentHref = anchor.getAttribute('href');
+            const newUrl = prompt("Enter new URL:", currentHref);
+            if(newUrl) anchor.setAttribute('href', newUrl);
+        }
+
+        // --- 5. IMAGE UPLOAD ---
+        function handleImage(e) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                document.getElementById('profile-pic').src = reader.result;
+                localStorage.setItem('p_img', reader.result); // Save image immediately
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        }
+    </script>
+</body>
+</html>
