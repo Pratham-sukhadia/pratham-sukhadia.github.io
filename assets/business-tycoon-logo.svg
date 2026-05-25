@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+  <title id="title">Business Tycoon logo</title>
+  <desc id="desc">A strategic game mark with city blocks and a rising business chart.</desc>
+  <rect width="160" height="160" rx="34" fill="#FFFFFF"/>
+  <rect x="13" y="13" width="134" height="134" rx="28" fill="#F4EBDD" stroke="#E5E0D8" stroke-width="2"/>
+  <path d="M45 102V70h22v32M72 102V52h25v50M103 102V63h19v39" fill="#FFFFFF" stroke="#1B4332" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M37 107h88" stroke="#1B4332" stroke-width="7" stroke-linecap="round"/>
+  <path d="M41 61c22 5 39-2 52-20l21 12" fill="none" stroke="#D4A853" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M113 53l-1-19 18 8" fill="none" stroke="#D4A853" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="58" cy="83" r="4" fill="#D4A853"/>
+  <circle cx="84" cy="69" r="4" fill="#D4A853"/>
+  <circle cx="113" cy="82" r="4" fill="#D4A853"/>
+  <text x="80" y="139" text-anchor="middle" font-family="Outfit, Arial, sans-serif" font-size="12" font-weight="800" fill="#1B4332">BUSINESS TYCOON</text>
+</svg>

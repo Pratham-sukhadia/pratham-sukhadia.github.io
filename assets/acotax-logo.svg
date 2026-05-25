@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+  <title id="title">AcoTax brand work logo</title>
+  <desc id="desc">A refined finance and marketing mark with initials and social media nodes.</desc>
+  <rect width="160" height="160" rx="34" fill="#FFFFFF"/>
+  <rect x="13" y="13" width="134" height="134" rx="28" fill="#FAF1D5" stroke="#E5E0D8" stroke-width="2"/>
+  <circle cx="80" cy="73" r="43" fill="#FFFFFF" stroke="#D4A853" stroke-width="4"/>
+  <text x="80" y="86" text-anchor="middle" font-family="Space Grotesk, Arial, sans-serif" font-size="42" font-weight="800" fill="#1B4332">AT</text>
+  <path d="M49 111h62" stroke="#1B4332" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="49" cy="111" r="8" fill="#D4A853"/>
+  <circle cx="80" cy="111" r="8" fill="#D4A853"/>
+  <circle cx="111" cy="111" r="8" fill="#D4A853"/>
+  <path d="M57 111h15M88 111h15" stroke="#D4A853" stroke-width="5" stroke-linecap="round"/>
+  <text x="80" y="139" text-anchor="middle" font-family="Outfit, Arial, sans-serif" font-size="13" font-weight="800" fill="#1B4332">ACOTAX</text>
+</svg>

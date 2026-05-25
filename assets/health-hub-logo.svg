@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+  <title id="title">Health Hub Pro logo</title>
+  <desc id="desc">A professional healthcare mark with a medical cross and pulse line.</desc>
+  <rect width="160" height="160" rx="34" fill="#FFFFFF"/>
+  <rect x="13" y="13" width="134" height="134" rx="28" fill="#E8F0EA" stroke="#E5E0D8" stroke-width="2"/>
+  <circle cx="80" cy="76" r="43" fill="#FFFFFF" stroke="#D4A853" stroke-width="4"/>
+  <path d="M80 48v56M52 76h56" stroke="#1B4332" stroke-width="13" stroke-linecap="round"/>
+  <path d="M38 111h23l9-17 13 30 10-21h29" fill="none" stroke="#D4A853" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="80" y="139" text-anchor="middle" font-family="Outfit, Arial, sans-serif" font-size="13" font-weight="800" fill="#1B4332">HEALTH HUB</text>
+</svg>
