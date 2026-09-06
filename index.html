@@ -838,7 +838,6 @@
         .project-card,
         .cert-card,
         .testimonial-card,
-        .article-card,
         .timeline-card,
         .metric-box,
         .progress-list,
@@ -890,7 +889,6 @@
 
         .service-card:hover,
         .project-card:hover,
-        .article-card:hover,
         .metric-box:hover {
             box-shadow: var(--shadow-lift), var(--shadow-inset);
             transform: translateY(-5px);
@@ -909,8 +907,7 @@
         }
 
         .service-card h3,
-        .project-card h3,
-        .article-card h3 {
+        .project-card h3 {
             color: var(--ink);
             font-size: 21px;
             line-height: 1.2;
@@ -919,7 +916,6 @@
 
         .service-card p,
         .project-card p,
-        .article-card p,
         .testimonial-card p {
             color: var(--body);
         }
@@ -1713,49 +1709,94 @@
         }
 
         .article-card {
-            overflow: hidden;
-            transition: box-shadow 0.25s ease, transform 0.25s ease;
-        }
-
-        .article-thumb {
-            height: 190px;
+            border-radius: 12px;
+            min-height: 440px;
             overflow: hidden;
             position: relative;
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            background: var(--ink);
         }
 
-        .article-thumb img {
+        .article-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lift);
+        }
+
+        .article-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+        }
+
+        .article-bg img {
+            width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.42s var(--ease);
-            width: 100%;
+            transition: transform 0.6s ease;
         }
 
-        .article-card:hover .article-thumb img {
-            transform: scale(1.06);
+        .article-card:hover .article-bg img {
+            transform: scale(1.08);
+        }
+
+        .article-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(17, 24, 28, 0) 0%, rgba(17, 24, 28, 0.4) 40%, rgba(17, 24, 28, 0.95) 100%);
+            z-index: 2;
         }
 
         .article-body {
-            padding: 24px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 34px 28px;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
         }
 
-        .category-tag {
-            color: var(--sea-dark);
-            display: inline-flex;
-            font-size: 12px;
+        .article-card .category-tag {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 11px;
+            margin-bottom: 16px;
+            align-self: flex-start;
+            text-transform: uppercase;
             font-weight: 800;
             letter-spacing: 1px;
-            margin-bottom: 12px;
-            text-transform: uppercase;
         }
 
-        .read-meta {
-            align-items: center;
-            color: var(--muted);
-            display: flex;
-            font-size: 12px;
+        .article-card h3 {
+            color: #fff;
+            font-size: 22px;
+            font-weight: 700;
+            line-height: 1.25;
+            margin-bottom: 12px;
+        }
+
+        .article-card p {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 15px;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        .article-card .read-meta {
+            color: var(--coral);
+            margin-top: 18px;
+            font-size: 13px;
             font-weight: 800;
+            display: flex;
+            align-items: center;
             gap: 8px;
-            margin-top: 14px;
         }
 
         .read-meta i {
@@ -3585,8 +3626,9 @@
                 <h2 class="section-heading reveal-up">Notes from the workbench.</h2>
                 <div class="article-grid">
                     <article class="article-card reveal-up">
-                        <div class="article-thumb">
-                            <img src="assets/article-ai-workflow.png" alt="AI Prompt Engineering Workflow">
+                        <div class="article-bg">
+                            <img src="assets/article-ai-workflow.jpg" alt="AI Prompt Engineering Workflow">
+                            <div class="article-overlay"></div>
                         </div>
                         <div class="article-body">
                             <span class="category-tag">AI Workflow</span>
@@ -3596,8 +3638,9 @@
                         </div>
                     </article>
                     <article class="article-card reveal-up">
-                        <div class="article-thumb">
-                            <img src="assets/article-seo-guide.png" alt="SEO Optimization Guide">
+                        <div class="article-bg">
+                            <img src="assets/article-seo-guide.jpg" alt="SEO Optimization Guide">
+                            <div class="article-overlay"></div>
                         </div>
                         <div class="article-body">
                             <span class="category-tag">SEO</span>
@@ -3607,8 +3650,9 @@
                         </div>
                     </article>
                     <article class="article-card reveal-up">
-                        <div class="article-thumb">
-                            <img src="assets/article-paperbull-build.png" alt="Building PaperBull Stock Simulator">
+                        <div class="article-bg">
+                            <img src="assets/article-paperbull-build.jpg" alt="Building PaperBull Stock Simulator">
+                            <div class="article-overlay"></div>
                         </div>
                         <div class="article-body">
                             <span class="category-tag">Build Log</span>
