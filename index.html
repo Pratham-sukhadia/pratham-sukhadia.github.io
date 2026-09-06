@@ -197,103 +197,51 @@
         }
 
         .site-preloader {
-            align-items: center;
-            background:
-                linear-gradient(135deg, rgba(247, 247, 242, 0.96), rgba(230, 239, 236, 0.96)),
-                var(--paper);
-            display: grid;
-            inset: 0;
-            justify-items: center;
-            padding: 24px;
-            position: fixed;
-            z-index: 20000;
-        }
-
-        .preloader-panel {
-            background: var(--glass-strong);
-            border: 1px solid rgba(255, 255, 255, 0.75);
-            border-radius: 8px;
-            box-shadow: var(--shadow-soft), var(--shadow-inset);
-            display: grid;
-            gap: 18px;
-            justify-items: center;
-            max-width: 420px;
-            padding: 34px;
-            text-align: center;
-            width: min(100%, 420px);
-        }
-
-        .preloader-mark-wrap {
-            display: grid;
-            height: 96px;
-            place-items: center;
-            position: relative;
-            width: 96px;
-        }
-
-        .preloader-ring {
-            animation: loaderSpin 2.6s linear infinite;
-            border: 1px solid rgba(8, 125, 119, 0.2);
-            border-left-color: var(--coral);
-            border-radius: 50%;
-            inset: 0;
-            position: absolute;
-        }
-
-        .preloader-ring:nth-child(2) {
-            animation-direction: reverse;
-            animation-duration: 3.8s;
-            inset: 12px;
-        }
-
-        .preloader-mark {
-            align-items: center;
             background: var(--ink);
-            border-radius: 8px;
-            box-shadow: 0 16px 28px rgba(17, 24, 28, 0.22);
-            color: #fff;
+            color: var(--paper);
             display: flex;
-            font-size: 27px;
-            font-weight: 800;
-            height: 62px;
-            justify-content: center;
-            width: 62px;
-        }
-
-        .preloader-panel h2 {
-            color: var(--ink);
+            align-items: flex-end;
+            justify-content: space-between;
+            padding: 5vw;
+            position: fixed;
+            inset: 0;
+            z-index: 20000;
             font-family: var(--font-head);
-            font-size: clamp(34px, 7vw, 48px);
-            font-weight: 400;
-            line-height: 0.95;
-        }
-
-        .preloader-panel p {
-            color: var(--body);
-            font-size: 14px;
-            max-width: 290px;
-        }
-
-        .preloader-bar {
-            background: rgba(17, 24, 28, 0.08);
-            border-radius: 999px;
-            height: 7px;
             overflow: hidden;
-            width: min(100%, 290px);
         }
 
-        .preloader-bar span {
-            background: linear-gradient(90deg, var(--sea), var(--coral), var(--solar));
-            border-radius: inherit;
-            display: block;
+        .loader-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
             height: 100%;
-            width: 0;
+            width: 100%;
         }
 
-        @keyframes loaderSpin {
-            to {
-                transform: rotate(360deg);
-            }
+        .loader-counter {
+            font-size: clamp(80px, 20vw, 300px);
+            font-weight: 400;
+            line-height: 0.8;
+            letter-spacing: -0.04em;
+            color: var(--coral);
+            align-self: flex-end;
+            margin-top: auto;
+            margin-right: -2vw;
+        }
+
+        .loader-text, .loader-brand {
+            font-family: var(--font-body);
+            font-size: 14px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.5;
+        }
+
+        .loader-brand {
+            position: absolute;
+            top: 5vw;
+            left: 5vw;
         }
 
         .site-nav {
@@ -2810,15 +2758,10 @@
     <div class="scroll-progress" id="scrollProgress"></div>
 
     <div class="site-preloader" id="sitePreloader" aria-live="polite" aria-label="Loading portfolio">
-        <div class="preloader-panel">
-            <div class="preloader-mark-wrap">
-                <span class="preloader-ring"></span>
-                <span class="preloader-ring"></span>
-                <div class="preloader-mark">PS</div>
-            </div>
-            <h2>Shaping the portfolio</h2>
-            <p>Loading the 3D scene, project visuals, and polished interface.</p>
-            <div class="preloader-bar"><span></span></div>
+        <div class="loader-content">
+            <div class="loader-brand">Pratham Sukhadia &copy; 2026<br>Developer + Designer</div>
+            <div class="loader-text">Loading Experience...</div>
+            <div class="loader-counter" id="loaderCounter">0%</div>
         </div>
     </div>
 
@@ -3904,10 +3847,9 @@
             }
 
             if (hasGsap && !prefersReducedMotion) {
-                gsap.timeline({ defaults: { ease: 'power3.out' } })
-                    .to('.preloader-bar span', { width: '100%', duration: 0.62 })
-                    .to('.preloader-panel', { y: -18, opacity: 0, duration: 0.42 }, '-=0.12')
-                    .to(preloader, { yPercent: -100, duration: 0.72, ease: 'power4.inOut' })
+                gsap.timeline({ defaults: { ease: 'power4.inOut' } })
+                    .to('.loader-content > div', { y: -40, opacity: 0, duration: 0.6, stagger: 0.1 })
+                    .to(preloader, { yPercent: -100, duration: 0.9 }, "-=0.3")
                     .add(complete);
             } else {
                 complete();
@@ -3915,8 +3857,16 @@
         }
 
         if (hasGsap && !prefersReducedMotion) {
-            gsap.to('.preloader-bar span', { width: '74%', duration: 1.1, ease: 'power2.out' });
-            gsap.from('.preloader-mark', { scale: 0.86, opacity: 0, duration: 0.62, ease: 'back.out(1.6)' });
+            const counter = { val: 0 };
+            gsap.to(counter, {
+                val: 100,
+                duration: 1.6,
+                ease: 'power3.inOut',
+                onUpdate: () => {
+                    const el = document.getElementById('loaderCounter');
+                    if (el) el.innerText = Math.floor(counter.val) + '%';
+                }
+            });
 
             gsap.utils.toArray('.reveal-up').forEach(element => {
                 if (element.closest('#hero')) return;
