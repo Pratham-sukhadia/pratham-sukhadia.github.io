@@ -498,35 +498,7 @@
             position: absolute;
         }
 
-        #webgl-container {
-            background:
-                linear-gradient(115deg, rgba(247, 247, 242, 0.58), rgba(230, 239, 236, 0.58) 44%, rgba(239, 181, 68, 0.12)),
-                var(--paper);
-            height: 100%;
-            opacity: 0;
-            position: absolute;
-            width: 100%;
-        }
 
-        .no-webgl #webgl-container {
-            opacity: 1;
-        }
-
-        .no-webgl #webgl-container::before {
-            background:
-                linear-gradient(35deg, transparent 0 42%, rgba(8, 125, 119, 0.16) 42% 46%, transparent 46%),
-                linear-gradient(145deg, transparent 0 54%, rgba(238, 103, 77, 0.14) 54% 58%, transparent 58%),
-                linear-gradient(90deg, rgba(46, 110, 232, 0.14), transparent 52%);
-            content: "";
-            inset: 0;
-            position: absolute;
-        }
-
-        #webgl-container canvas {
-            display: block;
-            height: 100% !important;
-            width: 100% !important;
-        }
 
         .hero-section::before {
             background:
@@ -2916,9 +2888,6 @@
 
     <main>
         <section id="hero" class="hero-section">
-            <div class="hero-stage">
-                <div id="webgl-container" aria-label="Interactive 3D portfolio scene"></div>
-            </div>
             <div class="container hero-grid">
                 <div class="hero-copy">
                     <div class="availability-pill reveal-up">
@@ -2954,7 +2923,7 @@
 
                 <div class="hero-side reveal-up">
                     <div class="portrait-panel">
-                        <img src="2.jpeg" alt="Portrait of Pratham Sukhadia">
+                        <img src="assets/2.jpeg" alt="Portrait of Pratham Sukhadia">
                         <div class="portrait-caption">
                             <span>Nadiad, Gujarat</span>
                             <span>Open to work</span>
@@ -2996,7 +2965,7 @@
             <div class="container about-grid">
                 <div class="about-media reveal-up">
                     <div class="photo-card">
-                        <img src="1.jpeg" alt="Portrait of Pratham Sukhadia">
+                        <img src="assets/1.jpeg" alt="Portrait of Pratham Sukhadia">
                     </div>
                     <div class="proof-note">Ranked 95% in Prompt Engineering certification</div>
                 </div>
@@ -3900,7 +3869,6 @@
 
             if (hasGsap && !prefersReducedMotion) {
                 gsap.timeline({ defaults: { ease: 'power3.out' } })
-                    .to('#webgl-container', { opacity: 1, duration: 0.6 })
                     .to('.hero-copy .reveal-up', { y: 0, opacity: 1, duration: 0.85, stagger: 0.1 }, 0.1)
                     .to('.hero-side.reveal-up', { y: 0, opacity: 1, duration: 0.85 }, 0.24)
                     .add(() => animateCounters(), 0.65);
@@ -3909,7 +3877,6 @@
                     element.style.opacity = '1';
                     element.style.transform = 'none';
                 });
-                document.getElementById('webgl-container').style.opacity = '1';
                 animateCounters();
             }
         }
@@ -3964,197 +3931,7 @@
         window.addEventListener('load', () => window.setTimeout(finishPreloader, 360));
         window.setTimeout(finishPreloader, 1800);
 
-        const webglContainer = document.getElementById('webgl-container');
 
-        if (window.THREE) {
-            const scene = new THREE.Scene();
-            scene.fog = new THREE.FogExp2(0xf7f7f2, 0.025);
-
-            const camera = new THREE.PerspectiveCamera(52, 1, 0.1, 1000);
-            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            renderer.setClearColor(0x000000, 0);
-            if (THREE.sRGBEncoding) renderer.outputEncoding = THREE.sRGBEncoding;
-            webglContainer.appendChild(renderer.domElement);
-
-            const palette = {
-                ink: 0x11181c,
-                sea: 0x087d77,
-                coral: 0xee674d,
-                solar: 0xefb544,
-                cobalt: 0x2e6ee8,
-                paper: 0xf7f7f2
-            };
-
-            const group = new THREE.Group();
-            scene.add(group);
-
-            const glassMaterial = new THREE.MeshPhysicalMaterial({
-                color: 0xffffff,
-                transparent: true,
-                opacity: 0.42,
-                roughness: 0.18,
-                metalness: 0.08,
-                clearcoat: 0.7,
-                clearcoatRoughness: 0.12,
-                side: THREE.DoubleSide
-            });
-
-            const inkMaterial = new THREE.MeshStandardMaterial({
-                color: palette.ink,
-                roughness: 0.34,
-                metalness: 0.28
-            });
-
-            const accentMaterials = [
-                new THREE.MeshStandardMaterial({ color: palette.sea, roughness: 0.32, metalness: 0.18 }),
-                new THREE.MeshStandardMaterial({ color: palette.coral, roughness: 0.36, metalness: 0.1 }),
-                new THREE.MeshStandardMaterial({ color: palette.solar, roughness: 0.42, metalness: 0.08 }),
-                new THREE.MeshStandardMaterial({ color: palette.cobalt, roughness: 0.36, metalness: 0.14 })
-            ];
-
-            const panelGeometry = new THREE.BoxGeometry(6.4, 4.1, 0.18);
-            const smallPanelGeometry = new THREE.BoxGeometry(2.4, 1.45, 0.16);
-            const edgeMaterial = new THREE.LineBasicMaterial({ color: palette.ink, transparent: true, opacity: 0.18 });
-
-            function addPanel(x, y, z, rotationY, material, scale = 1) {
-                const panel = new THREE.Mesh(panelGeometry, material);
-                panel.position.set(x, y, z);
-                panel.rotation.y = rotationY;
-                panel.scale.setScalar(scale);
-                group.add(panel);
-
-                const edges = new THREE.LineSegments(new THREE.EdgesGeometry(panelGeometry), edgeMaterial);
-                edges.position.copy(panel.position);
-                edges.rotation.copy(panel.rotation);
-                edges.scale.copy(panel.scale);
-                group.add(edges);
-
-                return panel;
-            }
-
-            addPanel(5.3, 0.8, -7.6, -0.58, glassMaterial, 1.18);
-            addPanel(1.4, -1.2, -5.2, -0.24, glassMaterial, 0.84);
-            addPanel(8.2, -2.4, -10.2, -0.75, glassMaterial, 0.74);
-
-            const slab = new THREE.Mesh(new THREE.BoxGeometry(7.2, 0.34, 3.6), inkMaterial);
-            slab.position.set(5.6, -3.55, -7.4);
-            slab.rotation.y = -0.58;
-            group.add(slab);
-
-            const tiles = [];
-            for (let i = 0; i < 12; i += 1) {
-                const tile = new THREE.Mesh(smallPanelGeometry, accentMaterials[i % accentMaterials.length]);
-                const col = i % 4;
-                const row = Math.floor(i / 4);
-                tile.position.set(1.4 + col * 1.25, 2.15 - row * 1.0, -4.88 - row * 0.04);
-                tile.rotation.y = -0.24;
-                tile.scale.set(0.34, 0.34, 0.34);
-                group.add(tile);
-                tiles.push(tile);
-            }
-
-            const ring = new THREE.Mesh(
-                new THREE.TorusKnotGeometry(1.35, 0.22, 120, 14),
-                new THREE.MeshStandardMaterial({ color: palette.coral, roughness: 0.22, metalness: 0.16 })
-            );
-            ring.position.set(8.5, 1.95, -6.6);
-            ring.rotation.set(0.8, 0.45, 0.2);
-            group.add(ring);
-
-            const nodeGeometry = new THREE.SphereGeometry(0.09, 18, 18);
-            const lineMaterial = new THREE.LineBasicMaterial({ color: palette.sea, transparent: true, opacity: 0.32 });
-            const nodes = [];
-            for (let i = 0; i < 34; i += 1) {
-                const node = new THREE.Mesh(nodeGeometry, accentMaterials[i % accentMaterials.length]);
-                node.position.set(
-                    (Math.random() - 0.2) * 15,
-                    (Math.random() - 0.45) * 8,
-                    -7 - Math.random() * 11
-                );
-                scene.add(node);
-                nodes.push({ mesh: node, speed: 0.003 + Math.random() * 0.009, seed: Math.random() * 10 });
-            }
-
-            for (let i = 0; i < nodes.length - 1; i += 3) {
-                const geometry = new THREE.BufferGeometry().setFromPoints([
-                    nodes[i].mesh.position,
-                    nodes[i + 1].mesh.position
-                ]);
-                const line = new THREE.Line(geometry, lineMaterial);
-                scene.add(line);
-            }
-
-            scene.add(new THREE.AmbientLight(0xffffff, 0.86));
-
-            const keyLight = new THREE.DirectionalLight(0xffffff, 1.5);
-            keyLight.position.set(-4, 7, 7);
-            scene.add(keyLight);
-
-            const warmLight = new THREE.PointLight(palette.solar, 1.9, 30);
-            warmLight.position.set(8, 3, 1);
-            scene.add(warmLight);
-
-            const coolLight = new THREE.PointLight(palette.cobalt, 1.1, 34);
-            coolLight.position.set(0, -4, 2);
-            scene.add(coolLight);
-
-            camera.position.set(0, 0, 8.5);
-
-            let mouseX = 0;
-            let mouseY = 0;
-            document.addEventListener('mousemove', (event) => {
-                mouseX = (event.clientX / window.innerWidth - 0.5) * 2;
-                mouseY = (event.clientY / window.innerHeight - 0.5) * 2;
-            });
-
-            function resizeWebgl() {
-                const size = webglContainer.getBoundingClientRect();
-                const width = Math.max(1, size.width);
-                const height = Math.max(1, size.height);
-                camera.aspect = width / height;
-                camera.updateProjectionMatrix();
-                renderer.setSize(width, height, false);
-
-                const isMobile = width < 760;
-                group.position.x = isMobile ? -0.35 : 0.8;
-                group.position.y = isMobile ? -0.75 : -0.15;
-                group.scale.setScalar(isMobile ? 0.78 : 1);
-            }
-
-            function animateWebgl() {
-                requestAnimationFrame(animateWebgl);
-                const time = performance.now() * 0.001;
-
-                group.rotation.y += ((mouseX * 0.08) - group.rotation.y) * 0.035;
-                group.rotation.x += ((-mouseY * 0.045) - group.rotation.x) * 0.035;
-
-                ring.rotation.x += 0.006;
-                ring.rotation.y += 0.009;
-
-                tiles.forEach((tile, index) => {
-                    tile.position.y += Math.sin(time * 1.4 + index) * 0.002;
-                });
-
-                nodes.forEach((node) => {
-                    node.mesh.position.y += Math.sin(time + node.seed) * node.speed * 0.08;
-                    node.mesh.rotation.x += node.speed;
-                    node.mesh.rotation.y += node.speed * 0.6;
-                });
-
-                camera.position.x += (mouseX * 0.45 - camera.position.x) * 0.03;
-                camera.position.y += (-mouseY * 0.28 - camera.position.y) * 0.03;
-                camera.lookAt(4.6, -0.4, -7.5);
-                renderer.render(scene, camera);
-            }
-
-            resizeWebgl();
-            animateWebgl();
-            window.addEventListener('resize', resizeWebgl);
-        } else {
-            document.body.classList.add('no-webgl');
-            webglContainer.style.opacity = '1';
-        }
 
         document.querySelectorAll('.tab-button').forEach(button => {
             button.addEventListener('click', () => {
