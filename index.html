@@ -1056,14 +1056,6 @@
             display: none;
         }
 
-        .project-thumb {
-            background: linear-gradient(135deg, #dceae6, #f4ecd5);
-            min-height: 292px;
-            overflow: hidden;
-            padding: 24px;
-            position: relative;
-        }
-
         .project-badges {
             display: flex;
             flex-wrap: wrap;
@@ -1089,301 +1081,6 @@
             background: var(--sea-dark);
             border-color: var(--sea-dark);
             color: #fff;
-        }
-
-        .project-showcase {
-            align-items: stretch;
-            display: grid;
-            gap: 16px;
-            grid-template-columns: 124px minmax(0, 1fr);
-            margin-top: 52px;
-            min-height: 178px;
-            transform: perspective(950px) rotateX(2deg) rotateY(-4deg);
-            transform-origin: center;
-            transition: transform 0.36s var(--ease);
-        }
-
-        .project-card:hover .project-showcase {
-            transform: perspective(950px) rotateX(0) rotateY(0) translateY(-4px);
-        }
-
-        .project-logo-tile,
-        .project-preview-panel {
-            background: rgba(255, 255, 255, 0.78);
-            backdrop-filter: blur(14px);
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            border-radius: 8px;
-            box-shadow: 12px 16px 34px rgba(17, 24, 28, 0.13), var(--shadow-inset);
-        }
-
-        .project-logo-tile {
-            align-items: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 16px;
-            text-align: center;
-        }
-
-        .project-logo-tile img {
-            height: 62px;
-            margin-bottom: 12px;
-            object-fit: contain;
-            width: 62px;
-        }
-
-        .project-logo-tile strong {
-            color: var(--ink);
-            display: block;
-            font-size: 14px;
-            line-height: 1.1;
-        }
-
-        .project-logo-tile span {
-            color: var(--muted);
-            display: block;
-            font-size: 10px;
-            font-weight: 800;
-            margin-top: 4px;
-            text-transform: uppercase;
-        }
-
-        .project-preview-panel {
-            display: grid;
-            overflow: hidden;
-        }
-
-        .preview-toolbar {
-            align-items: center;
-            background: rgba(17, 24, 28, 0.05);
-            border-bottom: 1px solid rgba(17, 24, 28, 0.08);
-            display: flex;
-            gap: 7px;
-            min-height: 32px;
-            padding: 0 13px;
-        }
-
-        .preview-toolbar span {
-            background: var(--coral);
-            border-radius: 50%;
-            height: 8px;
-            width: 8px;
-        }
-
-        .preview-toolbar span:nth-child(2) {
-            background: var(--solar);
-        }
-
-        .preview-toolbar span:nth-child(3) {
-            background: var(--sea);
-        }
-
-        .preview-title {
-            background: none !important;
-            border-radius: 0 !important;
-            color: var(--charcoal);
-            flex: 1;
-            font-size: 9px;
-            font-weight: 800;
-            height: auto !important;
-            letter-spacing: 0.6px;
-            text-align: right;
-            width: auto !important;
-        }
-
-        .preview-content {
-            display: grid;
-            gap: 12px;
-            padding: 15px;
-        }
-
-        .preview-chart {
-            align-items: end;
-            background: rgba(17, 24, 28, 0.05);
-            border-radius: 7px;
-            display: flex;
-            gap: 7px;
-            min-height: 78px;
-            padding: 13px;
-        }
-
-        .preview-chart span {
-            background: var(--sea);
-            border-radius: 999px 999px 3px 3px;
-            display: block;
-            flex: 1;
-            min-width: 8px;
-        }
-
-        .preview-chart span:nth-child(2),
-        .preview-chart span:nth-child(5) {
-            background: var(--coral);
-        }
-
-        .preview-chart .bar-38 {
-            height: 38%;
-        }
-
-        .preview-chart .bar-48 {
-            height: 48%;
-        }
-
-        .preview-chart .bar-64 {
-            height: 64%;
-        }
-
-        .preview-chart .bar-72 {
-            height: 72%;
-        }
-
-        .preview-chart .bar-86 {
-            height: 86%;
-        }
-
-        .preview-chart .bar-94 {
-            height: 94%;
-        }
-
-        .preview-list {
-            display: grid;
-            gap: 8px;
-        }
-
-        .preview-list span {
-            background: rgba(17, 24, 28, 0.11);
-            border-radius: 999px;
-            display: block;
-            height: 8px;
-        }
-
-        .preview-list span:nth-child(2) {
-            width: 76%;
-        }
-
-        .preview-list span:nth-child(3) {
-            width: 54%;
-        }
-
-        .health-preview .preview-content,
-        .brand-preview .preview-content {
-            grid-template-columns: 1fr 1fr;
-        }
-
-        .health-card,
-        .social-tile,
-        .game-tile,
-        .gym-tile {
-            background: rgba(17, 24, 28, 0.055);
-            border-radius: 7px;
-            min-height: 56px;
-            padding: 12px;
-        }
-
-        .health-card i,
-        .social-tile i,
-        .game-tile i,
-        .gym-tile i {
-            color: var(--sea);
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .health-card span,
-        .social-tile span,
-        .game-tile span,
-        .gym-tile span {
-            background: rgba(17, 24, 28, 0.16);
-            border-radius: 999px;
-            display: block;
-            height: 7px;
-            width: 70%;
-        }
-
-        .gym-preview .preview-content,
-        .game-preview .preview-content {
-            grid-template-columns: repeat(3, 1fr);
-        }
-
-        .gym-tile,
-        .game-tile {
-            align-content: center;
-            display: grid;
-            justify-items: center;
-            min-height: 112px;
-            text-align: center;
-        }
-
-        .gym-tile strong,
-        .game-tile strong {
-            color: var(--ink);
-            font-family: var(--font-head);
-            font-size: 24px;
-            font-weight: 400;
-        }
-
-        .brand-preview .social-tile {
-            min-height: 80px;
-        }
-
-        .thumb-paperbull {
-            background: linear-gradient(135deg, #cfe5df, #f7deb7);
-        }
-
-        .thumb-health {
-            background: linear-gradient(135deg, #dff0ea, #d8e6ff);
-        }
-
-        .thumb-gym {
-            background: linear-gradient(135deg, #e6eee3, #f7d5c9);
-        }
-
-        .thumb-game {
-            background: linear-gradient(135deg, #f5ead1, #d9e7ff);
-        }
-
-        .thumb-brand {
-            background: linear-gradient(135deg, #f8d9cb, #e0eadf);
-        }
-
-        .thumb-apex {
-            background: linear-gradient(135deg, #d0e3f0, #dff0ea);
-            min-height: auto;
-            padding: 28px;
-        }
-
-        .apex-image-showcase {
-            display: grid;
-            gap: 18px;
-            grid-template-columns: 1fr 1fr;
-            margin-top: 0;
-        }
-
-        .apex-image-showcase img {
-            background: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            border-radius: 8px;
-            box-shadow: 12px 16px 34px rgba(17, 24, 28, 0.13), var(--shadow-inset);
-            object-fit: contain;
-            transition: transform 0.36s var(--ease);
-            width: 100%;
-        }
-
-        .apex-image-showcase img:hover {
-            transform: scale(1.03);
-        }
-
-        .project-body {
-            display: flex;
-            flex: 1;
-            flex-direction: column;
-            padding: 26px;
-        }
-
-        .project-tagline {
-            color: var(--sea-dark);
-            font-size: 13px;
-            font-weight: 800;
-            margin-bottom: 8px;
         }
 
         .mini-chip-row,
@@ -3125,86 +2822,45 @@
                 </div>
 
                 <div class="projects-wrapper">
-                    <article class="project-card featured reveal-up" data-category="web ai">
-                        <div class="project-thumb thumb-paperbull">
-                            <div class="project-badges">
-                                <span class="project-pill">2025</span>
-                                <span class="project-pill">Full-Stack</span>
-                                <span class="project-pill live">Live</span>
-                            </div>
-                            <div class="project-showcase">
-                                <div class="project-logo-tile">
-                                    <img src="favicon.svg" alt="PaperBull logo">
-                                    <strong>PaperBull</strong>
-                                    <span>Trading Lab</span>
-                                </div>
-                                <div class="project-preview-panel market-preview" aria-hidden="true">
-                                    <div class="preview-toolbar">
-                                        <span></span><span></span><span></span>
-                                        <span class="preview-title">PAPERBULL TERMINAL</span>
-                                    </div>
-                                    <div class="preview-content">
-                                        <div class="preview-chart">
-                                            <span class="bar-38"></span>
-                                            <span class="bar-72"></span>
-                                            <span class="bar-48"></span>
-                                            <span class="bar-86"></span>
-                                            <span class="bar-64"></span>
-                                            <span class="bar-94"></span>
-                                        </div>
-                                        <div class="preview-list">
-                                            <span></span><span></span><span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <article class="project-card article-card featured reveal-up" data-category="web ai">
+                        <div class="article-bg">
+                            <img src="assets/project-paperbull.jpg" alt="PaperBull">
+                            <div class="article-overlay"></div>
                         </div>
-                        <div class="project-body">
-                            <div class="project-tagline">Featured - Stock Market Simulator</div>
+                        <div class="project-badges">
+                            <span class="project-pill">2025</span>
+                            <span class="project-pill">Full-Stack</span>
+                            <span class="project-pill live">Live</span>
+                        </div>
+                        <div class="article-body">
+                            <span class="category-tag">Featured - Stock Market Simulator</span>
                             <h3>PaperBull</h3>
-                            <p>A trading simulator with real-time dashboard thinking, virtual trading workflows, WebSocket-style
-                                interactions, and data-heavy UI patterns.</p>
+                            <p>A trading simulator with real-time dashboard thinking, virtual trading workflows, WebSocket-style interactions, and data-heavy UI patterns.</p>
                             <div class="mini-chip-row">
                                 <span class="mini-chip">Node.js</span>
                                 <span class="mini-chip">Express</span>
                                 <span class="mini-chip">WebSocket</span>
                                 <span class="mini-chip">SQLite</span>
                                 <span class="mini-chip">Chart.js</span>
-                                <span class="mini-chip">REST API</span>
                             </div>
                             <div class="project-actions">
-                                <a href="https://pratham-sukhadia.github.io" target="_blank" rel="noopener noreferrer"
-                                    class="project-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>
-                                <a href="https://github.com/Pratham-sukhadia" target="_blank" rel="noopener noreferrer"
-                                    class="project-action"><i class="fa-brands fa-github"></i> GitHub</a>
+                                <a href="https://pratham-sukhadia.github.io" target="_blank" rel="noopener noreferrer" class="project-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>
+                                <a href="https://github.com/Pratham-sukhadia" target="_blank" rel="noopener noreferrer" class="project-action"><i class="fa-brands fa-github"></i> GitHub</a>
                             </div>
                         </div>
                     </article>
 
-                    <article class="project-card reveal-up" data-category="web design">
-                        <div class="project-thumb thumb-health">
-                            <div class="project-badges">
-                                <span class="project-pill">2024</span>
-                                <span class="project-pill">Web App</span>
-                            </div>
-                            <div class="project-showcase">
-                                <div class="project-logo-tile">
-                                    <img src="assets/health-hub-logo.svg" alt="Health Hub logo">
-                                    <strong>Health Hub</strong>
-                                    <span>Care App</span>
-                                </div>
-                                <div class="project-preview-panel health-preview" aria-hidden="true">
-                                    <div class="preview-toolbar"><span></span><span></span><span></span></div>
-                                    <div class="preview-content">
-                                        <div class="health-card"><i class="fa-solid fa-calendar-check"></i><span></span></div>
-                                        <div class="health-card"><i class="fa-solid fa-user-doctor"></i><span></span></div>
-                                        <div class="health-card"><i class="fa-solid fa-notes-medical"></i><span></span></div>
-                                        <div class="health-card"><i class="fa-solid fa-heart-pulse"></i><span></span></div>
-                                    </div>
-                                </div>
-                            </div>
+                    <article class="project-card article-card reveal-up" data-category="web design">
+                        <div class="article-bg">
+                            <img src="assets/project-healthhub.jpg" alt="Health Hub">
+                            <div class="article-overlay"></div>
                         </div>
-                        <div class="project-body">
+                        <div class="project-badges">
+                            <span class="project-pill">2024</span>
+                            <span class="project-pill">Web App</span>
+                        </div>
+                        <div class="article-body">
+                            <span class="category-tag">Healthcare App</span>
                             <h3>Health Hub</h3>
                             <p>A responsive healthcare concept with appointment, doctor, and patient workflow screens.</p>
                             <div class="mini-chip-row">
@@ -3213,37 +2869,23 @@
                                 <span class="mini-chip">Figma</span>
                             </div>
                             <div class="project-actions">
-                                <a href="https://pratham-sukhadia.github.io" target="_blank" rel="noopener noreferrer"
-                                    class="project-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>
-                                <a href="https://github.com/Pratham-sukhadia" target="_blank" rel="noopener noreferrer"
-                                    class="project-action"><i class="fa-brands fa-github"></i> GitHub</a>
+                                <a href="https://pratham-sukhadia.github.io" target="_blank" rel="noopener noreferrer" class="project-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>
+                                <a href="https://github.com/Pratham-sukhadia" target="_blank" rel="noopener noreferrer" class="project-action"><i class="fa-brands fa-github"></i> GitHub</a>
                             </div>
                         </div>
                     </article>
 
-                    <article class="project-card reveal-up" data-category="web">
-                        <div class="project-thumb thumb-gym">
-                            <div class="project-badges">
-                                <span class="project-pill">2025 - Present</span>
-                                <span class="project-pill">Web App</span>
-                            </div>
-                            <div class="project-showcase">
-                                <div class="project-logo-tile">
-                                    <img src="assets/gym-pulse-logo.svg" alt="Gym Pulse logo">
-                                    <strong>Gym Pulse</strong>
-                                    <span>Fitness</span>
-                                </div>
-                                <div class="project-preview-panel gym-preview" aria-hidden="true">
-                                    <div class="preview-toolbar"><span></span><span></span><span></span></div>
-                                    <div class="preview-content">
-                                        <div class="gym-tile"><i class="fa-solid fa-dumbbell"></i><strong>42</strong><span></span></div>
-                                        <div class="gym-tile"><i class="fa-solid fa-fire"></i><strong>7d</strong><span></span></div>
-                                        <div class="gym-tile"><i class="fa-solid fa-chart-line"></i><strong>+12%</strong><span></span></div>
-                                    </div>
-                                </div>
-                            </div>
+                    <article class="project-card article-card reveal-up" data-category="web">
+                        <div class="article-bg">
+                            <img src="assets/project-gympulse.jpg" alt="Gym Pulse">
+                            <div class="article-overlay"></div>
                         </div>
-                        <div class="project-body">
+                        <div class="project-badges">
+                            <span class="project-pill">2025 - Present</span>
+                            <span class="project-pill">Web App</span>
+                        </div>
+                        <div class="article-body">
+                            <span class="category-tag">Fitness Tracker</span>
                             <h3>Gym Pulse</h3>
                             <p>A fitness dashboard concept for workouts, streaks, progress metrics, and membership experience.</p>
                             <div class="mini-chip-row">
@@ -3253,35 +2895,22 @@
                             </div>
                             <div class="project-actions">
                                 <span class="project-action is-muted"><i class="fa-solid fa-clock"></i> Coming Soon</span>
-                                <a href="https://github.com/Pratham-sukhadia" target="_blank" rel="noopener noreferrer"
-                                    class="project-action"><i class="fa-brands fa-github"></i> GitHub</a>
+                                <a href="https://github.com/Pratham-sukhadia" target="_blank" rel="noopener noreferrer" class="project-action"><i class="fa-brands fa-github"></i> GitHub</a>
                             </div>
                         </div>
                     </article>
 
-                    <article class="project-card reveal-up" data-category="game">
-                        <div class="project-thumb thumb-game">
-                            <div class="project-badges">
-                                <span class="project-pill">2023</span>
-                                <span class="project-pill">Game</span>
-                            </div>
-                            <div class="project-showcase">
-                                <div class="project-logo-tile">
-                                    <img src="assets/business-tycoon-logo.svg" alt="Business Tycoon logo">
-                                    <strong>Business Tycoon</strong>
-                                    <span>Game</span>
-                                </div>
-                                <div class="project-preview-panel game-preview" aria-hidden="true">
-                                    <div class="preview-toolbar"><span></span><span></span><span></span></div>
-                                    <div class="preview-content">
-                                        <div class="game-tile"><i class="fa-solid fa-building"></i><strong>HQ</strong><span></span></div>
-                                        <div class="game-tile"><i class="fa-solid fa-coins"></i><strong>2.4M</strong><span></span></div>
-                                        <div class="game-tile"><i class="fa-solid fa-chart-simple"></i><strong>+18%</strong><span></span></div>
-                                    </div>
-                                </div>
-                            </div>
+                    <article class="project-card article-card reveal-up" data-category="game">
+                        <div class="article-bg">
+                            <img src="assets/project-businesstycoon.jpg" alt="Business Tycoon">
+                            <div class="article-overlay"></div>
                         </div>
-                        <div class="project-body">
+                        <div class="project-badges">
+                            <span class="project-pill">2023</span>
+                            <span class="project-pill">Game</span>
+                        </div>
+                        <div class="article-body">
+                            <span class="category-tag">Simulation Game</span>
                             <h3>Business Tycoon</h3>
                             <p>A Java simulation game focused on business logic, resource decisions, and score progression.</p>
                             <div class="mini-chip-row">
@@ -3290,49 +2919,31 @@
                                 <span class="mini-chip">Simulation</span>
                             </div>
                             <div class="project-actions">
-                                <a href="https://github.com/Pratham-sukhadia" target="_blank" rel="noopener noreferrer"
-                                    class="project-action"><i class="fa-brands fa-github"></i> GitHub</a>
+                                <a href="https://github.com/Pratham-sukhadia" target="_blank" rel="noopener noreferrer" class="project-action"><i class="fa-brands fa-github"></i> GitHub</a>
                             </div>
                         </div>
                     </article>
 
-                    <article class="project-card reveal-up" data-category="design">
-                        <div class="project-thumb thumb-brand">
-                            <div class="project-badges">
-                                <span class="project-pill">2024</span>
-                                <span class="project-pill">Design</span>
-                            </div>
-                            <div class="project-showcase">
-                                <div class="project-logo-tile">
-                                    <img src="assets/acotax-logo.svg" alt="AcoTax logo">
-                                    <strong>AcoTax</strong>
-                                    <span>Brand</span>
-                                </div>
-                                <div class="project-preview-panel brand-preview" aria-hidden="true">
-                                    <div class="preview-toolbar"><span></span><span></span><span></span></div>
-                                    <div class="preview-content">
-                                        <div class="social-tile"><i class="fa-brands fa-instagram"></i><span></span></div>
-                                        <div class="social-tile"><i class="fa-brands fa-linkedin-in"></i><span></span></div>
-                                        <div class="social-tile"><i class="fa-brands fa-facebook-f"></i><span></span></div>
-                                        <div class="social-tile"><i class="fa-solid fa-chart-line"></i><span></span></div>
-                                    </div>
-                                </div>
-                            </div>
+                    <article class="project-card article-card reveal-up" data-category="design">
+                        <div class="article-bg">
+                            <img src="assets/project-acotax.jpg" alt="AcoTax Brand Work">
+                            <div class="article-overlay"></div>
                         </div>
-                        <div class="project-body">
+                        <div class="project-badges">
+                            <span class="project-pill">2024</span>
+                            <span class="project-pill">Design</span>
+                        </div>
+                        <div class="article-body">
+                            <span class="category-tag">Brand Strategy</span>
                             <h3>AcoTax Brand Work</h3>
-                            <p>Social media management, marketing creatives, and brand identity across Instagram,
-                                Facebook, and LinkedIn.</p>
+                            <p>Social media management, marketing creatives, and brand identity across Instagram, Facebook, and LinkedIn.</p>
                             <div class="mini-chip-row">
-                                <span class="mini-chip">Photoshop</span>
-                                <span class="mini-chip">CorelDRAW</span>
-                                <span class="mini-chip">Canva</span>
+                                <span class="mini-chip">Figma</span>
+                                <span class="mini-chip">Marketing</span>
+                                <span class="mini-chip">Social Media</span>
                             </div>
                             <div class="project-actions">
-                                <a href="https://www.instagram.com/acotax_" target="_blank" rel="noopener noreferrer"
-                                    class="project-action"><i class="fa-brands fa-instagram"></i> Instagram</a>
-                                <a href="https://www.linkedin.com/company/acotax" target="_blank" rel="noopener noreferrer"
-                                    class="project-action"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</a>
+                                <a href="https://instagram.com/acotax" target="_blank" rel="noopener noreferrer" class="project-action"><i class="fa-brands fa-instagram"></i> View Page</a>
                             </div>
                         </div>
                     </article>
