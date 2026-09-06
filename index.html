@@ -226,13 +226,13 @@
             background: rgba(255, 255, 255, 0.68);
             backdrop-filter: blur(18px);
             border: 1px solid rgba(255, 255, 255, 0.74);
-            border-radius: 8px;
+            border-radius: 999px;
             box-shadow: 0 16px 44px rgba(17, 24, 28, 0.1), var(--shadow-inset);
             display: flex;
             gap: 18px;
             justify-content: space-between;
             min-height: 64px;
-            padding: 10px 12px 10px 18px;
+            padding: 8px 10px 8px 18px;
         }
 
         .logo {
@@ -247,7 +247,7 @@
         .logo-mark {
             align-items: center;
             background: var(--ink);
-            border-radius: 7px;
+            border-radius: 50%;
             color: #fff;
             display: inline-flex;
             height: 42px;
@@ -277,11 +277,11 @@
 
         .nav-links a,
         .footer-links a {
-            border-radius: 7px;
+            border-radius: 999px;
             color: var(--charcoal);
             font-size: 13px;
             font-weight: 800;
-            padding: 10px 12px;
+            padding: 10px 16px;
             text-decoration: none;
             transition: background 0.2s ease, color 0.2s ease;
         }
@@ -297,7 +297,7 @@
             align-items: center;
             background: var(--ink);
             border: 1px solid var(--ink);
-            border-radius: 7px;
+            border-radius: 999px;
             color: #fff;
             display: inline-flex;
             font-size: 13px;
@@ -755,21 +755,55 @@
         }
 
         .fact-item {
-            align-items: center;
-            background: rgba(255, 255, 255, 0.62);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            border-radius: 8px;
-            box-shadow: var(--shadow-inset);
-            color: var(--charcoal);
-            display: flex;
-            font-size: 14px;
-            font-weight: 700;
-            gap: 12px;
-            min-height: 56px;
-            padding: 13px 14px;
+            background-color: transparent;
+            perspective: 1000px;
+            height: 56px;
         }
 
-        .fact-item i {
+        .fact-item-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s var(--ease);
+            transform-style: preserve-3d;
+        }
+
+        .fact-item:hover .fact-item-inner {
+            transform: rotateX(180deg);
+        }
+
+        .fact-item-front,
+        .fact-item-back {
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            padding: 13px 14px;
+            border-radius: 8px;
+            box-shadow: var(--shadow-inset);
+            font-size: 13px;
+            font-weight: 700;
+            gap: 12px;
+            -webkit-backface-visibility: hidden;
+        }
+
+        .fact-item-front {
+            background: rgba(255, 255, 255, 0.62);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            color: var(--charcoal);
+        }
+
+        .fact-item-back {
+            background: var(--sea);
+            border: 1px solid var(--sea-dark);
+            color: #fff;
+            transform: rotateX(180deg);
+            justify-content: center;
+        }
+
+        .fact-item-front i {
             color: var(--sea);
             width: 18px;
         }
@@ -868,6 +902,22 @@
             justify-content: center;
             margin-bottom: 24px;
             width: 48px;
+        }
+
+        .service-proof {
+            position: absolute;
+            top: 26px;
+            right: 26px;
+            background: var(--glass-strong);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(17, 24, 28, 0.1);
+            border-radius: 999px;
+            color: var(--ink);
+            font-size: 11px;
+            font-weight: 800;
+            padding: 6px 12px;
+            box-shadow: 0 4px 12px rgba(17, 24, 28, 0.05);
+            z-index: 2;
         }
 
         .service-card h3,
@@ -1419,6 +1469,25 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
+            transform: translateY(60px);
+            transition: transform 0.4s var(--ease);
+        }
+
+        .article-card:hover .article-body {
+            transform: translateY(0);
+        }
+
+        .article-body .mini-chip-row,
+        .article-body .project-actions,
+        .article-body .read-meta {
+            opacity: 0;
+            transition: opacity 0.4s var(--ease);
+        }
+
+        .article-card:hover .article-body .mini-chip-row,
+        .article-card:hover .article-body .project-actions,
+        .article-card:hover .article-body .read-meta {
+            opacity: 1;
         }
 
         .article-card .category-tag {
@@ -1512,25 +1581,30 @@
             grid-template-columns: 1fr 1fr;
         }
 
-        .contact-form label {
-            color: var(--ink);
-            display: grid;
-            font-size: 13px;
-            font-weight: 800;
-            gap: 7px;
+        .form-group {
+            position: relative;
+            background: rgba(255, 255, 255, 0.72);
+            border: 1px solid rgba(17, 24, 28, 0.12);
+            border-radius: 7px;
+            transition: background 0.3s ease;
+            overflow: hidden;
+        }
+
+        .form-group:hover,
+        .form-group:focus-within {
+            background: rgba(255, 255, 255, 0.95);
         }
 
         .contact-form input,
         .contact-form select,
         .contact-form textarea {
-            background: rgba(255, 255, 255, 0.72);
-            border: 1px solid rgba(17, 24, 28, 0.12);
-            border-radius: 7px;
+            background: transparent;
+            border: none;
             color: var(--charcoal);
-            min-height: 46px;
-            padding: 12px 13px;
-            transition: border-color 0.22s ease, box-shadow 0.22s ease;
             width: 100%;
+            padding: 24px 13px 8px;
+            font-size: 14px;
+            font-weight: 700;
         }
 
         .contact-form textarea {
@@ -1541,9 +1615,45 @@
         .contact-form input:focus,
         .contact-form select:focus,
         .contact-form textarea:focus {
-            border-color: var(--sea);
-            box-shadow: 0 0 0 4px rgba(8, 125, 119, 0.11);
             outline: none;
+        }
+
+        .form-group label {
+            position: absolute;
+            left: 14px;
+            top: 16px;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 800;
+            pointer-events: none;
+            transition: transform 0.3s var(--ease), color 0.3s var(--ease);
+            transform-origin: left top;
+        }
+
+        .contact-form input:focus ~ label,
+        .contact-form input:not(:placeholder-shown) ~ label,
+        .contact-form textarea:focus ~ label,
+        .contact-form textarea:not(:placeholder-shown) ~ label,
+        .contact-form select:focus ~ label,
+        .contact-form select:valid ~ label {
+            transform: translateY(-8px) scale(0.85);
+            color: var(--sea);
+        }
+
+        .input-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--sea);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s var(--ease);
+        }
+
+        .form-group:focus-within .input-line {
+            transform: scaleX(1);
         }
 
         .form-note {
@@ -1567,6 +1677,30 @@
             position: absolute;
             right: 0;
             top: 0;
+        }
+
+        .footer-massive-text {
+            font-family: var(--font-head);
+            font-size: clamp(60px, 15vw, 240px);
+            font-weight: 800;
+            line-height: 0.8;
+            letter-spacing: -0.04em;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.04);
+            margin: 60px 0 20px;
+            user-select: none;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .footer-time {
+            font-family: var(--font-mono, monospace);
+            font-size: 11px;
+            letter-spacing: 1px;
+            color: var(--solar);
+            text-transform: uppercase;
+            display: inline-block;
+            margin-top: 6px;
         }
 
         .footer-main {
@@ -3112,12 +3246,42 @@
                         digital marketing, and automation with LLMs, so I can think about how a product is found, shared,
                         and improved after launch.</p>
                     <div class="fact-grid reveal-up">
-                        <div class="fact-item"><i class="fa-solid fa-location-dot"></i> Nadiad, Gujarat</div>
-                        <div class="fact-item"><i class="fa-solid fa-graduation-cap"></i> BCA - Charusat University</div>
-                        <div class="fact-item"><i class="fa-solid fa-briefcase"></i> Open to Full-Time</div>
-                        <div class="fact-item"><i class="fa-solid fa-trophy"></i> AWS Bedrock Certified</div>
-                        <div class="fact-item"><i class="fa-solid fa-pen-nib"></i> UI/UX + Graphic Design</div>
-                        <div class="fact-item"><i class="fa-solid fa-chart-line"></i> SEO &amp; SMO Specialist</div>
+                        <div class="fact-item">
+                            <div class="fact-item-inner">
+                                <div class="fact-item-front"><i class="fa-solid fa-location-dot"></i> Nadiad, Gujarat</div>
+                                <div class="fact-item-back">Available to Relocate</div>
+                            </div>
+                        </div>
+                        <div class="fact-item">
+                            <div class="fact-item-inner">
+                                <div class="fact-item-front"><i class="fa-solid fa-graduation-cap"></i> BCA - Charusat Univ.</div>
+                                <div class="fact-item-back">Class of 2026</div>
+                            </div>
+                        </div>
+                        <div class="fact-item">
+                            <div class="fact-item-inner">
+                                <div class="fact-item-front"><i class="fa-solid fa-briefcase"></i> Open to Full-Time</div>
+                                <div class="fact-item-back">Internships & Roles</div>
+                            </div>
+                        </div>
+                        <div class="fact-item">
+                            <div class="fact-item-inner">
+                                <div class="fact-item-front"><i class="fa-solid fa-trophy"></i> AWS Bedrock Certified</div>
+                                <div class="fact-item-back">95% Prompt Score</div>
+                            </div>
+                        </div>
+                        <div class="fact-item">
+                            <div class="fact-item-inner">
+                                <div class="fact-item-front"><i class="fa-solid fa-pen-nib"></i> UI/UX + Graphic Design</div>
+                                <div class="fact-item-back">Figma & Adobe CC</div>
+                            </div>
+                        </div>
+                        <div class="fact-item">
+                            <div class="fact-item-inner">
+                                <div class="fact-item-front"><i class="fa-solid fa-chart-line"></i> SEO & SMO Specialist</div>
+                                <div class="fact-item-back">Growth Marketing</div>
+                            </div>
+                        </div>
                     </div>
                     <a class="text-link reveal-up" href="#contact">Let's Connect <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
@@ -3132,31 +3296,37 @@
                 <div class="services-grid">
                     <article class="service-card reveal-up">
                         <span class="service-icon"><i class="fa-solid fa-code"></i></span>
+                        <div class="service-proof">15+ Repos</div>
                         <h3>Full-Stack Development</h3>
                         <p>React.js, Node.js, Java, and database-backed web experiences that are clean, responsive, and usable.</p>
                     </article>
                     <article class="service-card reveal-up">
                         <span class="service-icon"><i class="fa-solid fa-pen-ruler"></i></span>
+                        <div class="service-proof">Figma / XD</div>
                         <h3>UI/UX Design</h3>
                         <p>Wireframes, design systems, polished interfaces, and user flows built with Figma and Adobe XD.</p>
                     </article>
                     <article class="service-card reveal-up">
                         <span class="service-icon"><i class="fa-solid fa-palette"></i></span>
+                        <div class="service-proof">Adobe CC</div>
                         <h3>Graphic Design</h3>
                         <p>Photoshop, CorelDRAW, and Canva assets for brand identity, campaign visuals, and social media.</p>
                     </article>
                     <article class="service-card reveal-up">
                         <span class="service-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></span>
+                        <div class="service-proof">Page 1 Ranks</div>
                         <h3>SEO Optimization</h3>
                         <p>Keyword research, meta structure, content hygiene, and search-friendly page improvements.</p>
                     </article>
                     <article class="service-card reveal-up">
                         <span class="service-icon"><i class="fa-solid fa-share-nodes"></i></span>
+                        <div class="service-proof">ROI Driven</div>
                         <h3>Social Media Marketing</h3>
                         <p>Instagram, Facebook, and LinkedIn content planning with practical analytics and creative consistency.</p>
                     </article>
                     <article class="service-card reveal-up">
                         <span class="service-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+                        <div class="service-proof">95% Score</div>
                         <h3>AI &amp; Prompt Engineering</h3>
                         <p>AWS Bedrock, LLM workflows, and AI-assisted development for faster planning and smarter execution.</p>
                     </article>
@@ -3504,7 +3674,7 @@
                 <div class="timeline">
                     <div class="timeline-item reveal-up">
                         <div class="timeline-dot"></div>
-                        <article class="timeline-card">
+                        <article class="timeline-card tilt-card">
                             <div class="timeline-head">
                                 <h3>SMO, SEO Specialist &amp; Graphic Designer - AcoTax, Nadiad</h3>
                                 <span class="duration-pill">Dec 2023 - Present</span>
@@ -3528,7 +3698,7 @@
 
                     <div class="timeline-item reveal-up">
                         <div class="timeline-dot education"></div>
-                        <article class="timeline-card">
+                        <article class="timeline-card tilt-card">
                             <div class="timeline-head">
                                 <h3>BCA - CMPICA, Charusat University</h3>
                                 <span class="duration-pill">2023 - 2026</span>
@@ -3547,7 +3717,7 @@
 
                     <div class="timeline-item reveal-up">
                         <div class="timeline-dot education"></div>
-                        <article class="timeline-card">
+                        <article class="timeline-card tilt-card">
                             <div class="timeline-head">
                                 <h3>HSC Commerce - Vision School of Science</h3>
                                 <span class="duration-pill">May 2023</span>
@@ -3742,27 +3912,32 @@
 
                 <form class="contact-form reveal-up" id="contactForm">
                     <div class="form-row">
-                        <label>Name
-                            <input type="text" id="name" name="name" placeholder="Your name" required>
-                        </label>
-                        <label>Email
-                            <input type="email" id="email" name="email" placeholder="you@example.com" required>
-                        </label>
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder=" " required>
+                            <label for="name">Your name</label>
+                            <div class="input-line"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder=" " required>
+                            <label for="email">you@example.com</label>
+                            <div class="input-line"></div>
+                        </div>
                     </div>
-                    <label>Subject
+                    <div class="form-group">
                         <select id="subject" name="subject" required>
                             <option value="Project Inquiry">Project Inquiry</option>
                             <option value="Job Offer">Job Offer</option>
                             <option value="Collaboration">Collaboration</option>
                             <option value="Other">Other</option>
                         </select>
-                    </label>
-                    <label>Message
-                        <textarea id="message" name="message" rows="6" placeholder="Tell me what you want to build"
-                            required></textarea>
-                    </label>
-                    <button class="btn btn-primary" type="submit">Send Message <i
-                            class="fa-solid fa-arrow-right"></i></button>
+                        <div class="input-line"></div>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" rows="6" placeholder=" " required></textarea>
+                        <label for="message">Tell me what you want to build</label>
+                        <div class="input-line"></div>
+                    </div>
+                    <button class="btn btn-primary magnetic-btn" type="submit">Send Message <i class="fa-solid fa-arrow-right"></i></button>
                     <p class="form-note">Typically responds within 24 hours</p>
                 </form>
             </div>
@@ -3770,32 +3945,36 @@
     </main>
 
     <footer class="site-footer">
-        <div class="container footer-main">
-            <div class="footer-brand">
-                <a href="#hero" class="logo">
-                    <span class="logo-mark">PS</span>
-                    <span class="logo-text"><span>Pratham Sukhadia</span><span>Developer + Designer</span></span>
-                </a>
-                <p>Built in Gujarat, India</p>
+        <div class="container">
+            <div class="footer-massive-text reveal-up">PRATHAM</div>
+            
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <a href="#hero" class="logo">
+                        <span class="logo-mark">PS</span>
+                        <span class="logo-text"><span>Pratham Sukhadia</span><span>Developer + Designer</span></span>
+                    </a>
+                    <p>Built in Gujarat, India <br> <span id="localTime" class="footer-time">Loading local time...</span></p>
+                </div>
+                <div class="footer-links">
+                    <a href="#hero">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#projects">Work</a>
+                    <a href="#experience">Experience</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <div class="footer-social">
+                    <a class="icon-button" href="https://github.com/Pratham-sukhadia" target="_blank"
+                        rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <a class="icon-button" href="https://www.linkedin.com/in/pratham-sukhadia-714095315" target="_blank"
+                        rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a class="icon-button" href="mailto:sukhadiapratham952@gmail.com" aria-label="Email"><i
+                            class="fa-solid fa-envelope"></i></a>
+                </div>
             </div>
-            <div class="footer-links">
-                <a href="#hero">Home</a>
-                <a href="#about">About</a>
-                <a href="#skills">Skills</a>
-                <a href="#projects">Work</a>
-                <a href="#experience">Experience</a>
-                <a href="#contact">Contact</a>
-            </div>
-            <div class="footer-social">
-                <a class="icon-button" href="https://github.com/Pratham-sukhadia" target="_blank"
-                    rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-                <a class="icon-button" href="https://www.linkedin.com/in/pratham-sukhadia-714095315" target="_blank"
-                    rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-                <a class="icon-button" href="mailto:sukhadiapratham952@gmail.com" aria-label="Email"><i
-                        class="fa-solid fa-envelope"></i></a>
-            </div>
+            <div class="footer-bottom">&copy; 2026 Pratham Sukhadia. All Rights Reserved.</div>
         </div>
-        <div class="footer-bottom">&copy; 2026 Pratham Sukhadia. All Rights Reserved.</div>
     </footer>
 
     <script>
@@ -4334,6 +4513,28 @@
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
             });
+        })();
+
+        /* ══════════════════════════════════════
+           FOOTER LOCAL TIME
+           ══════════════════════════════════════ */
+        (function() {
+            const timeEl = document.getElementById('localTime');
+            if(!timeEl) return;
+            function updateTime() {
+                const now = new Date();
+                const options = {
+                    timeZone: 'Asia/Kolkata',
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: true
+                };
+                const timeString = new Intl.DateTimeFormat('en-US', options).format(now);
+                timeEl.textContent = `${timeString} IST`;
+            }
+            updateTime();
+            setInterval(updateTime, 1000);
         })();
     </script>
 </body>
